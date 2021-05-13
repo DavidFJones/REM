@@ -32,9 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Tooltip("The maximum angle or 'slope' our character can walk up before being pulled against by gravity")]
     private float maxSlope = 40;
-    [SerializeField]
     private float currentSlopeAngle; //Angle of the slope we are currently standing on
-    [SerializeField]
 
     Rigidbody rb;
     CapsuleCollider playerCollider;
@@ -68,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             //checks the x and z rotation of the hit object
             float rotX = Mathf.Abs(hit.transform.rotation.x);
             float rotZ = Mathf.Abs(hit.transform.rotation.z);
-            //if The x/z rotation exceeds... Than set the slope angle to the 
+            //if The x/z rotation exceeds... Than set the slope angle to the top of the hit normal
             //This is bad but i'm not actually sure the real number, roughly 10ish degrees?
             if(rotX > 0.1 || rotZ > 0.1) {
                 currentSlopeAngle = Vector3.Angle(hit.normal, Vector3.up);
@@ -76,27 +74,31 @@ public class PlayerMovement : MonoBehaviour
                 currentSlopeAngle = 0;
             }
 
-            currentHitDistance = hit.distance;
-            relativeStepHeight = Mathf.Abs(playerCollider.bounds.min.y - hit.point.y);
-            Debug.DrawLine(hit.point, hit.point + new Vector3(0, 2, 0), Color.black);
+            currentHitDistance = hit.distance;//Sets our hit distance 
+            relativeStepHeight = Mathf.Abs(playerCollider.bounds.min.y - hit.point.y);//Checks how tall the object we wish to step on is
+
+            //Verifies that the step we are climbing a step that doesn't exceed the max height, or a slope
             if(relativeStepHeight <= maxStepHeight && currentSlopeAngle <= maxSlope) {
                 Vector3 newPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y - 1f * currentHitDistance + 0.3f, gameObject.transform.position.z);
+                //Snaps the player to the ground
                 playerCollider.transform.position = newPosition;
+                
+                //If the current angle exeeds our max slope value, turn on gravity to start pulling the player down
             } else if (currentSlopeAngle > maxSlope) {
                 rb.useGravity = true;
                 rb.drag = 0;
                 rb.mass = 5;
             }
         } else {
+            //If we are not touching a ground surface, enable gravity to the player can fall
             rb.useGravity = true;
             rb.drag = 0;
             rb.mass = 10;
             currentHitDistance = sphereDistance;
             currentSlopeAngle = 0;
         }
-        
-        
 
+        //Pushes our player relative to the movement direction
         rb.AddRelativeForce(movement * accelertaion * Time.deltaTime);
 
         //Clamp our max velocity to our max speed value

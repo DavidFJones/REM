@@ -1353,11 +1353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accelertaion: 5500
   maxSpeed: 7
-  relativeStepHeight: 0
-  maxStepHeight: 0.5
+  maxStepHeight: 50
   maxSlope: 40
-  currentSlopeAngle: 0
-  hitObject: {fileID: 0}
 --- !u!114 &1623085393
 MonoBehaviour:
   m_ObjectHideFlags: 0
