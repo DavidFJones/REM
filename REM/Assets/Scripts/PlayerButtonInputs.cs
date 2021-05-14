@@ -17,6 +17,8 @@ public class PlayerButtonInputs : MonoBehaviour
     GameObject hitObject;//object we have currently hit with our raycast
     bool canTouch = false;//Used to determine if the player is allowed to grab the item their raycast is hitting (This is based on the items tag)
 
+    Vector3 hitPoint;
+
     bool paused = false;//Bool to determine if the game state is paused
     PlayerInventory playerInventory;
     UIHandler playerUI;
@@ -50,6 +52,7 @@ public class PlayerButtonInputs : MonoBehaviour
             //If we are looking at an item we can interact with
             if (hitObject.tag == "Interactable") {
                 canTouch = true;
+                hitPoint = hit.normal;
                 InteractionType currentType = GlobalVariables.returnInteractionType(hitObject);
                 switch (currentType) {
                     case InteractionType.Key:
@@ -61,7 +64,7 @@ public class PlayerButtonInputs : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
-                        playerUI.HUDMessageDoor(hitObject);
+                        playerUI.HUDMessageDoor("Interact", hitObject.transform.root.gameObject);
                         break;
                     default:
                         Debug.LogError("Player looked at an interactive object without a proper interaction type " +hitObject,hitObject);
@@ -95,7 +98,7 @@ public class PlayerButtonInputs : MonoBehaviour
                             displayInventoryFullMessage(hitObject);
                         break;
                     case InteractionType.Door:
-                        interactDoor(hitObject);
+                        interactDoor(hitObject, hitPoint);
                         break;
                     default:
                         Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);
@@ -109,8 +112,10 @@ public class PlayerButtonInputs : MonoBehaviour
         print("Inventory full!");
     }
 
-    public void interactDoor(GameObject door) {
-        print("Open Door");
+    public void interactDoor(GameObject currentDoor,Vector3 hitPoint) {
+        Door door = currentDoor.transform.root.GetComponent<Door>();
+        door.openCloseDoor(hitPoint);
+        
     }
 
     public void Pause(InputAction.CallbackContext context) {

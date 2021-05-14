@@ -13,14 +13,13 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public static InteractionType returnInteractionType(GameObject currentItem) {
-        CollectableItem itemType;
-        if(itemType = currentItem.GetComponent<CollectableItem>()){
-            return itemType.type;
+        if(currentItem.GetComponent<CollectableItem>()){
+            return currentItem.GetComponent<CollectableItem>().type;
         }
-        /*This will be used when doors exist
-        if(itemType = currentItem.GetComponent<InteractiveDoor>()) {
-            return itemType.type;
-        }*/
+
+        if(currentItem.transform.root.GetComponent<Door>()) {
+            return InteractionType.Door;
+        }
 
 
         return InteractionType.Null;

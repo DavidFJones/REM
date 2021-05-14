@@ -10,6 +10,12 @@ public class PlayerInventory : MonoBehaviour
     public List<GameObject> inventory;
     [HideInInspector]
     public bool inventoryFull = false;
+
+    UIHandler playerUI;
+
+    void Awake() {
+        playerUI = gameObject.GetComponent<UIHandler>();   
+    }
     public void grabItem(GameObject item) {
         if(inventory.Count < inventorySize) {
             inventory.Add(item);
