@@ -1100,6 +1100,14 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.010341704
       objectReference: {fileID: 0}
+    - target: {fileID: 5465081749085183180, guid: b8532ee00c898d9449d614aab7616bf5, type: 3}
+      propertyPath: title
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465081749085183180, guid: b8532ee00c898d9449d614aab7616bf5, type: 3}
+      propertyPath: description
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6170727207551534974, guid: b8532ee00c898d9449d614aab7616bf5, type: 3}
       propertyPath: m_Name
       value: Collectable Item Template

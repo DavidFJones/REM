@@ -114,8 +114,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(origin + -transform.up * currentHitDistance, sphereRadius);
+    private void OnDrawGizmos() {
+        if (GlobalVariables.showDebugLinesGlobal) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(origin + -transform.up * currentHitDistance, sphereRadius);
+        }
+        
     }
 }

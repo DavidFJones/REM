@@ -64,7 +64,7 @@ public class PlayerButtonInputs : MonoBehaviour
                         playerUI.HUDMessageDoor(hitObject);
                         break;
                     default:
-                        Debug.LogError("Player looked at an interactive object without a proper interaction type " +hitObject);
+                        Debug.LogError("Player looked at an interactive object without a proper interaction type " +hitObject,hitObject);
                         break;
                 }
                 
@@ -98,7 +98,7 @@ public class PlayerButtonInputs : MonoBehaviour
                         interactDoor(hitObject);
                         break;
                     default:
-                        Debug.LogError("Player interacted with an object without a proper interaction type");
+                        Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);
                         break;
                 }
             }

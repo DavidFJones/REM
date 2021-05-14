@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Key To My Heart
   description: Enter Description Here
-  image: {fileID: 2800000, guid: a186f8a87ca4f4d3aa864638ad5dfb65, type: 3}
+  image: {fileID: 0}
   type: 0
   interactionScale: {x: 0, y: 0, z: 0}
   interactionBox: {fileID: 5830535067270930672}

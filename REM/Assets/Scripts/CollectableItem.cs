@@ -29,17 +29,17 @@ public class CollectableItem : MonoBehaviour
         interactionBox.size = gameObject.transform.GetComponent<Collider>().bounds.size * .5f + interactionScale;
 
         if (image == null) {
-            Debug.LogError("No Image selected for - " + this);   
+            Debug.LogError("No Image selected for - " + this.transform, this);   
             image = UnityEditor.AssetPreview.GetAssetPreview(this);
         }
 
         if (title == "") {
-            Debug.LogError("No Title given for - " + this);
+            Debug.LogError("No Title given for - " + this.transform, this);
             title = "#ERROR - NO TITLE SET";
         }
 
         if (description == "") {
-            Debug.LogError("No description given for - " + this);
+            Debug.LogError("No description given for - " + this.transform, this);
             description = "#ERROR - NO DESCRIPTION SET";
         }
 
@@ -49,7 +49,7 @@ public class CollectableItem : MonoBehaviour
             case InteractionType.Item:
                 break;
             default:
-                Debug.LogError("Something has gone very wrong with this item " + this);
+                Debug.LogError("Something has gone very wrong with this item " + this.transform, this);
                 break;
         }
     }
