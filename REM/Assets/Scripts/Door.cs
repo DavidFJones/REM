@@ -32,9 +32,9 @@ public class Door : MonoBehaviour
 
     [Header("Closed Position")]
     [Tooltip("The closed rotation of our door. Typically this should be left at 0, 0, 0")]
-    public Vector3 closedRotation;
+    private Vector3 closedRotation;
     [Tooltip("The closed position of our door. Typically this should be left at 0, 0, 0")]
-    public Vector3 closedPosition;
+    private Vector3 closedPosition;
     [Header("Open Position")]
     [Tooltip("The open rotation of our door")]
     public Vector3 openRotation;
@@ -54,6 +54,11 @@ public class Door : MonoBehaviour
     UIHandler playerUI;//A reference to our players ui controller
 
     void Awake() {
+        //THIS NEEDS TO BE FIXED
+        closedPosition = gameObject.transform.position;
+        closedRotation = gameObject.transform.localRotation.eulerAngles;
+        //FIX THIS
+
         //Finds the player in the scene and assigns the ui and inventory references
         GameObject player = GameObject.Find("Player");
         playerUI = player.GetComponent<UIHandler>();
@@ -139,15 +144,15 @@ public class Door : MonoBehaviour
         
     }
 
-
+    /*
     void OnValidate() {
         if (!open) {
             //gameObject.transform.localPosition = closedPosition;
             //gameObject.transform.localRotation = Quaternion.Euler(closedRotation);
         } else {
-            gameObject.transform.localPosition = openPosition;
-            gameObject.transform.localRotation = Quaternion.Euler(openRotation);
+            //gameObject.transform.localPosition = openPosition;
+            //gameObject.transform.localRotation = Quaternion.Euler(openRotation);
         }
-    }
+    }*/
 
 }
