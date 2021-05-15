@@ -142,8 +142,8 @@ public class Door : MonoBehaviour
 
     void OnValidate() {
         if (!open) {
-            gameObject.transform.localPosition = closedPosition;
-            gameObject.transform.localRotation = Quaternion.Euler(closedRotation);
+            //gameObject.transform.localPosition = closedPosition;
+            //gameObject.transform.localRotation = Quaternion.Euler(closedRotation);
         } else {
             gameObject.transform.localPosition = openPosition;
             gameObject.transform.localRotation = Quaternion.Euler(openRotation);
