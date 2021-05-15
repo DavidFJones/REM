@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
-  m_SizeDelta: {x: 149.6, y: 80}
+  m_AnchoredPosition: {x: 108.1, y: -21.4}
+  m_SizeDelta: {x: 175, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7694406997529223962
 CanvasRenderer:
@@ -72,13 +72,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 50
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Door is locked
 --- !u!1 &3050276405341471627
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +632,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastMessage: {fileID: 2932054372532179882}
+  gameplayHUD: {fileID: 6921534968286131432}
+  crossHair: {fileID: 1673650120847286547}
+  crossHairImage: {fileID: 21300000, guid: bf43e61be22bb3d4f874c0005df553f7, type: 3}
+  handCrossHair: {fileID: 21300000, guid: 5e463fc0b5c28ac458b783799242a00b, type: 3}
+  lockCrossHair: {fileID: 21300000, guid: 8ce5445ffe5c1c14c83178f26a1c8ff5, type: 3}
   changeDoorMessage: 1
 --- !u!1 &8022341168167680202
 GameObject:

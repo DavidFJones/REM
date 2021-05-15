@@ -136,9 +136,10 @@ public class Door : MonoBehaviour
                     playerUI.HUDMessageDoor("Door unlocked", gameObject);
                     unlocked = true;
                     openCloseDoor(openLocation);
-                    return;
+                    break;
                 }
             }
+            if(!unlocked)
             playerUI.HUDMessageDoor("Door is locked", gameObject);
         }
         

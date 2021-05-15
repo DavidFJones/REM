@@ -6,15 +6,27 @@ public class UIHandler : MonoBehaviour
 {
     public Text raycastMessage;
 
+    public GameObject gameplayHUD;
+    public Image crossHair;
+
+    public Sprite crossHairImage;
+    public Sprite handCrossHair;
+    public Sprite lockCrossHair;
+
+
     public bool changeDoorMessage = true;
     private IEnumerator doorMessageTimer;
 
     public void HUDMessageDoor(string message, GameObject door) {
         if(changeDoorMessage)
             raycastMessage.text = message;
+            crossHair.sprite = handCrossHair;
+            crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
 
-        if(message == "Door unlocked" || message == "Door is locked") {
+        if (message == "Door unlocked" || message == "Door is locked") {
             raycastMessage.text = message;
+            crossHair.sprite = lockCrossHair;
+            crossHair.rectTransform.sizeDelta = new Vector2(20, 20);
             changeDoorMessage = false;
             doorMessageTimer = WaitAndPrint(5f);
             StartCoroutine(doorMessageTimer);
@@ -28,8 +40,13 @@ public class UIHandler : MonoBehaviour
     }
 
     public void HUDMessageItem(GameObject item) {
-        raycastMessage.text = item.GetComponent<CollectableItem>().title.ToString();
-        changeDoorMessage = true;
+        if (changeDoorMessage) {
+            raycastMessage.text = item.GetComponent<CollectableItem>().title.ToString();
+            changeDoorMessage = true;
+            crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
+            crossHair.sprite = handCrossHair;
+        }
+        
     }
 
     public void HUDMessageFull() {
@@ -41,5 +58,7 @@ public class UIHandler : MonoBehaviour
     public void HUDMessageClear() {
         raycastMessage.text = "";
         changeDoorMessage = true;
+        crossHair.sprite = crossHairImage;
+        crossHair.rectTransform.sizeDelta = new Vector2(5, 5); 
     }
 }
