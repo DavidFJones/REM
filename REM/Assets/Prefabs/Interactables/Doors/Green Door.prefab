@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8613374253927071113}
   - component: {fileID: 8976402045003869582}
   m_Layer: 7
-  m_Name: 'REal working door '
+  m_Name: Green Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,11 +24,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505073186518296902}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 279822468416244356}
+  - {fileID: 8988823503550588026}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,16 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   doorObject: {fileID: 2994945797527093917, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
-  open: 1
+  open: 0
   hasLock: 0
   keyObject: {fileID: 0}
   unlocked: 0
   doorSpeed: 1.5
-  closedRotation: {x: 0, y: 0, z: 0}
-  closedPosition: {x: 0, y: 0, z: 0}
-  openRotation: {x: 0, y: 90, z: 0}
-  openPosition: {x: 0, y: 0, z: 0}
---- !u!1 &4110722096728080640
+--- !u!1 &4567893769200976765
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +59,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 279822468416244356}
+  - component: {fileID: 8988823503550588026}
+  - component: {fileID: 2422130580392840151}
   m_Layer: 7
   m_Name: Door Container
   m_TagString: Untagged
@@ -71,13 +68,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &279822468416244356
+--- !u!4 &8988823503550588026
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4110722096728080640}
+  m_GameObject: {fileID: 4567893769200976765}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -86,16 +83,35 @@ Transform:
   m_Father: {fileID: 8613374253927071113}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2422130580392840151
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567893769200976765}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d28d5e86e1ae56439188241f40898a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &6384810950897882320
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 279822468416244356}
+    m_TransformParent: {fileID: 8988823503550588026}
     m_Modifications:
     - target: {fileID: 2994945797527093917, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_Name
-      value: Working door
+      value: Door Model
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_RootOrder
@@ -119,15 +135,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

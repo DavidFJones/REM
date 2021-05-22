@@ -52,7 +52,7 @@ public class PlayerButtonInputs : MonoBehaviour
             //If we are looking at an item we can interact with
             if (hitObject.tag == "Interactable") {
                 canTouch = true;
-                hitPoint = hit.normal;
+                hitPoint = hit.transform.InverseTransformPoint(hit.point);
                 InteractionType currentType = GlobalVariables.returnInteractionType(hitObject);
                 switch (currentType) {
                     case InteractionType.Key:
@@ -98,7 +98,7 @@ public class PlayerButtonInputs : MonoBehaviour
                             displayInventoryFullMessage(hitObject);
                         break;
                     case InteractionType.Door:
-                        interactDoor(hitObject, hitPoint);
+                        interactDoor(hitObject, hitPoint, transform.position);
                         break;
                     default:
                         Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);
@@ -112,9 +112,9 @@ public class PlayerButtonInputs : MonoBehaviour
         print("Inventory full!");
     }
 
-    public void interactDoor(GameObject currentDoor,Vector3 hitPoint) {
+    public void interactDoor(GameObject currentDoor,Vector3 hitPoint, Vector3 playerPos) {
         Door door = currentDoor.transform.root.GetComponent<Door>();
-        door.openCloseDoor(hitPoint);
+        door.openCloseDoor(hitPoint, playerPos);
         
     }
 
