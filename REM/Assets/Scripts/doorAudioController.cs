@@ -2,15 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class doorAudioController : MonoBehaviour
+public class DoorAudioController : MonoBehaviour
 {
-    Door parentDoor;
+    public AudioSource audioSource;
+    public AudioClip openSound;
+    public AudioClip closedSound;
 
-    void Awake() {
-        parentDoor = gameObject.transform.root.transform.gameObject.GetComponent<Door>();
-    }
-    void playClosedSound() {
-        parentDoor.playClosedSound();
+    void Start() {
+        Door doorInstance = gameObject.transform.parent.gameObject.GetComponent<Door>();
+        openSound = doorInstance.openSound;
+        closedSound = doorInstance.closedSound;
+        audioSource = gameObject.transform.parent.gameObject.GetComponent<AudioSource>();
     }
 
+    public void stopDoorOpenSound() {
+        AudioManager.StopSound(audioSource);
+    }
+
+    public void playDoorClosedSound() {
+        AudioManager.PlaySound(audioSource, closedSound);
+    }
 }

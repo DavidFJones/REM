@@ -50,9 +50,9 @@ MonoBehaviour:
   hasLock: 0
   keyObject: {fileID: 0}
   unlocked: 0
-  swingOpen: {fileID: 8300000, guid: 8d3ff35e8e2f35f43b5656c56235d61a, type: 3}
-  swingClosed: {fileID: 8300000, guid: 9187a604df319894d956b94b6a8199eb, type: 3}
-  closed: {fileID: 8300000, guid: fc345df47e0bb79488bd7263a2840d52, type: 3}
+  openSound: {fileID: 8300000, guid: 8d3ff35e8e2f35f43b5656c56235d61a, type: 3}
+  closedSound: {fileID: 8300000, guid: 150e255e7b47c4f46814e3f948399290, type: 3}
+  doorAudio: {fileID: 0}
 --- !u!82 &362756381902383992
 AudioSource:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8988823503550588026}
   - component: {fileID: 2422130580392840151}
-  - component: {fileID: 1370769698971307029}
+  - component: {fileID: 5289331767231697719}
   m_Layer: 7
   m_Name: Door Container
   m_TagString: Untagged
@@ -201,7 +201,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1370769698971307029
+--- !u!114 &5289331767231697719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,6 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c94679348c11646a3863a43a339830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closedSound: {fileID: 0}
 --- !u!1001 &6384810950897882320
 PrefabInstance:
   m_ObjectHideFlags: 0

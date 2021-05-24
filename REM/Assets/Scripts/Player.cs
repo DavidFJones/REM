@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
-                        SceneManager.Instance.playerUI.HUDMessageDoor("Interact", hitObject.transform.root.gameObject);
+                        SceneManager.Instance.playerUI.HUDMessageDoor("Interact", hitObject.transform.parent.transform.parent.gameObject);
                         break;
                     default:
                         Debug.LogError("Player looked at an interactive object without a proper interaction type " + hitObject, hitObject);
@@ -250,7 +250,7 @@ public class Player : MonoBehaviour
     }
     //Interact with the door we are looking at and see if it should be opened/unlocked
     public void interactDoor(GameObject currentDoor, Vector3 hitPoint, Vector3 playerPos) {
-        Door door = currentDoor.transform.root.GetComponent<Door>();
+        Door door = currentDoor.transform.parent.transform.parent.GetComponent<Door>();
         door.openCloseDoor(hitPoint, playerPos);
 
     }

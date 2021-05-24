@@ -38,7 +38,7 @@ public class SceneManager : MonoBehaviour
             return currentItem.GetComponent<CollectableItem>().type;
         }
 
-        if (currentItem.transform.root.GetComponent<Door>()) {
+        if (currentItem.transform.parent.transform.parent.GetComponent<Door>()) {
             return InteractionType.Door;
         }
 

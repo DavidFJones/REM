@@ -26,11 +26,9 @@ public class Door : MonoBehaviour {
 
     [Header("Sound Effects")]
     [Tooltip("Sound that plays while the door swings open")]
-    public AudioClip swingOpen;
-    [Tooltip("Sound that plays while the door swings shut")]
-    public AudioClip swingClosed;
+    public AudioClip openSound;
     [Tooltip("Sound that plays when the door clicks into the closed position")]
-    public AudioClip closed;
+    public AudioClip closedSound;
 
     [HideInInspector]
     DoorState currentState = DoorState.Closed;//What state the door is in
@@ -38,24 +36,13 @@ public class Door : MonoBehaviour {
     BoxCollider collision;//The auto generate collider for the door model
 
     Animator animator;
-    AudioSource doorAudio;
-
-    private bool playedClosedSound = true;//Have we already played the closed sound;
-    private bool playingSound = false;//Are we playing a long lasting sound?
-
-    //This should probably be change to a singleton for our player***
-    GameObject player;//A reference to our player character
-    AudioSource playerAudio;//Player audio controller (This really needs to be a global singleton
+    [HideInInspector]
+    public AudioSource doorAudio;
 
     private float openDirection;//A float the determines if we touched the front or back of an object
 
     void Awake() {
-        //FIX THIS
-        //Finds the player in the scene and assigns the ui and inventory references
-        GameObject player = GameObject.Find("Player");
-        playerAudio = player.GetComponent<AudioSource>();
 
-        //-4.437 z
         //Sets our animator
         animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
 
@@ -92,39 +79,25 @@ public class Door : MonoBehaviour {
         doorAudio = gameObject.GetComponent<AudioSource>();
     }
 
-    void Update() {
-
-
-        if (!playedClosedSound && animator.GetCurrentAnimatorStateInfo(0).IsName("DoorClose") && animator.GetAnimatorTransitionInfo(0).duration == 0)
-            playClosedSound();
-
-        if (playingSound && animator.GetAnimatorTransitionInfo(0).duration == 0)
-            StartCoroutine(FadeAudioOut());
-    }
-
-
     //Called whenever the player goes to interact with a door object
     public void openCloseDoor(Vector3 openLocation, Vector3 playerPos) {
         openDirection = Vector3.Dot(openLocation.normalized, Vector3.forward);
         //If our door is unlocked, or does not have a lock, allow us to open the door
         if (!hasLock || unlocked) {
-            //plays the player opening door sound
-            playerAudio.Play();
-
 
             //Toggles the open/closed state
             open = !open;
 
             if (!open) {
                 //play swing closing sound
-                playClosingSound();
+                AudioManager.PlaySound(doorAudio, openSound);
 
                 //close the door
                 currentState = DoorState.Closed;
             } else {
 
                 //play swing open sound
-                playOpeningSound();
+                AudioManager.PlaySound(doorAudio, openSound);
 
                 //Checks which side of the door we are interacting from, and set the target position/rotation appropriatly 
                 if ((openDirection) < 0) {
@@ -153,64 +126,6 @@ public class Door : MonoBehaviour {
 
     }
 
-    //fades the current sfx if it is not the door closing sound. Eventually make this a global static enum
-    public  IEnumerator FadeAudioOut() {
+   
 
-        playingSound = false;
-        float startVolume = doorAudio.volume;
-        
-
-        while (doorAudio.volume > 0) {
-            doorAudio.volume -= startVolume * Time.deltaTime / 0.2f;
-
-            yield return null;
-        }
-
-        doorAudio.Stop();
-        doorAudio.volume = startVolume;
-    }
-    //Plays our closed sound effect
-    public void playClosedSound() {
-        playedClosedSound = true;
-
-        //Sets and plays the door opening sound
-        doorAudio.clip = closed;
-        doorAudio.Play();
-    }
-
-    //Plays our swing open sound effect
-    void playOpeningSound() {
-        //playingSound = true;
-
-        //Sets and plays the door opening sound
-        doorAudio.clip = swingOpen;
-        doorAudio.Play();
-
-        Invoke("playingSoundTrue", 1f);
-
-        if (playedClosedSound)
-            Invoke("setCanCloseSound", 0.2f);
-    }
-
-    //Plays our swing closed sound effect
-    void playClosingSound() {
-        //playingSound = true;
-        //Sets and plays the door opening sound
-        doorAudio.clip = swingClosed;
-        doorAudio.Play();
-
-        Invoke("playingSoundTrue", 1f);
-
-        if (playedClosedSound)
-            Invoke("setCanCloseSound", 0.2f);
-        
-    }
-
-    void playingSoundTrue() {
-        playingSound = true;
-    }
-
-    void setCanCloseSound() {
-        playedClosedSound = false;
-    }
 }
