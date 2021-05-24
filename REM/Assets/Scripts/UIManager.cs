@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     private bool holdMessage = false;//Bool used to hold a specific message on the hud. This will prevent any other crosshair/ui text changes from occuring while true
 
     HUDMessages lastMessage;//Used to see what our last message was
+    GameObject lastItem;//The last item we looked at
     
     //used as a timer to set how long holdmessage bool is true for
     IEnumerator HoldTimer(float waitTime) {
@@ -25,7 +26,8 @@ public class UIManager : MonoBehaviour
     }
     //Displays the name of the item the player is looking at
     public void HUDMessageItem(GameObject item) {
-        if (!holdMessage) {
+        if (!holdMessage && item != lastItem) {
+            lastItem = item;
             hudText.text = item.GetComponent<CollectableItem>().title.ToString();
             crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
             crossHair.sprite = handCrossHair;
@@ -41,7 +43,7 @@ public class UIManager : MonoBehaviour
     }
     //Called when we are not looking at any interactive object. This resets the hud to default
     public void HUDMessageClear() {
-        if (!holdMessage) {
+        if (!holdMessage && lastMessage != HUDMessages.None) {
             hudText.text = "";
             crossHair.sprite = defaultCrossHair;
             crossHair.rectTransform.sizeDelta = new Vector2(5, 5);
@@ -50,7 +52,7 @@ public class UIManager : MonoBehaviour
     }
     //Called when the player is looking at an object they can interact with
     public void HUDMessageInteract() {
-        if (!holdMessage) {
+        if (!holdMessage && lastMessage != HUDMessages.Interact) {
             hudText.text = "Interact";
             crossHair.sprite = handCrossHair;
             crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
