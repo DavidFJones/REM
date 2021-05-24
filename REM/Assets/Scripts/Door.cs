@@ -45,8 +45,6 @@ public class Door : MonoBehaviour {
 
     //This should probably be change to a singleton for our player***
     GameObject player;//A reference to our player character
-    PlayerInventory playerInventory;//A reference to our players inventory
-    UIHandler playerUI;//A reference to our players ui controller
     AudioSource playerAudio;//Player audio controller (This really needs to be a global singleton
 
     private float openDirection;//A float the determines if we touched the front or back of an object
@@ -55,8 +53,6 @@ public class Door : MonoBehaviour {
         //FIX THIS
         //Finds the player in the scene and assigns the ui and inventory references
         GameObject player = GameObject.Find("Player");
-        playerUI = player.GetComponent<UIHandler>();
-        playerInventory = player.GetComponent<PlayerInventory>();
         playerAudio = player.GetComponent<AudioSource>();
 
         //-4.437 z
@@ -141,15 +137,15 @@ public class Door : MonoBehaviour {
 
             }
         } else { // The door is locked and we do not have the key
-            foreach (GameObject item in playerInventory.inventory) {
+            foreach (GameObject item in SceneManager.Instance.playerInventory.inventory) {
                 if (GameObject.ReferenceEquals(item, keyObject)) {
-                    playerUI.HUDMessageDoor("Door unlocked", gameObject);
+                    SceneManager.Instance.uIManager.HUDMessageDoor("Door unlocked", gameObject);
                     unlocked = true;
                     break;
                 }
             }
             if (!unlocked)
-                playerUI.HUDMessageDoor("Door is locked", gameObject);
+                SceneManager.Instance.uIManager.HUDMessageDoor("Door is locked", gameObject);
         }
 
         //Sets our door animator state to match our enum state

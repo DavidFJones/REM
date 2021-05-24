@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnDrawGizmos() {
-        if (GlobalVariables.showDebugLinesGlobal) {
+        if (SceneManager.Instance.showDebugLines) {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(origin + -transform.up * currentHitDistance, sphereRadius);
         }

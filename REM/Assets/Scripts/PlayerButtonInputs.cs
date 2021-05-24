@@ -42,7 +42,7 @@ public class PlayerButtonInputs : MonoBehaviour
         RaycastHit hit;
 
         //If we have enabled debug lines, show the raycast
-        if (GlobalVariables.showDebugLinesGlobal)
+        if (SceneManager.Instance.showDebugLines)
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * maxDistance, Color.red);
 
         //Checks to see if our player is looking at something within the max distance
@@ -53,7 +53,7 @@ public class PlayerButtonInputs : MonoBehaviour
             if (hitObject.tag == "Interactable") {
                 canTouch = true;
                 hitPoint = hit.transform.InverseTransformPoint(hit.point);
-                InteractionType currentType = GlobalVariables.returnInteractionType(hitObject);
+                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:
@@ -86,7 +86,7 @@ public class PlayerButtonInputs : MonoBehaviour
         if (context.started) {
             //And we are looking at an interactive item, do the thing
             if (canTouch) {
-                InteractionType currentType = GlobalVariables.returnInteractionType(hitObject);
+                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:

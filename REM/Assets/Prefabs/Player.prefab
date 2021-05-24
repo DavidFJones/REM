@@ -300,7 +300,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8022341166985711129}
-  - component: {fileID: 7788375401182528211}
   - component: {fileID: 8022341166985711109}
   - component: {fileID: 8022341166985711108}
   - component: {fileID: 8022341166985711110}
@@ -311,7 +310,6 @@ GameObject:
   - component: {fileID: 8022341166985711130}
   - component: {fileID: 8022341166985711131}
   - component: {fileID: 780473095948080065}
-  - component: {fileID: 5640014153149131779}
   - component: {fileID: 7275757366230980519}
   m_Layer: 3
   m_Name: Player
@@ -337,19 +335,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7788375401182528211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8022341166985711133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef56c4e4fdc8ac545931c43a59819eaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showDebugLines: 0
 --- !u!114 &8022341166985711109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,19 +625,6 @@ MonoBehaviour:
   handCrossHair: {fileID: 21300000, guid: 5e463fc0b5c28ac458b783799242a00b, type: 3}
   lockCrossHair: {fileID: 21300000, guid: 8ce5445ffe5c1c14c83178f26a1c8ff5, type: 3}
   changeDoorMessage: 1
---- !u!114 &5640014153149131779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8022341166985711133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017732034a554c842aa5b5dbfbd401ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorOpenSound: {fileID: 8300000, guid: 39f6bf1ee0893344d9b74c3cc4aebcf0, type: 3}
 --- !u!82 &7275757366230980519
 AudioSource:
   m_ObjectHideFlags: 0

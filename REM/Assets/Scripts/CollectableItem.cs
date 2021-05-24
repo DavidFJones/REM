@@ -76,7 +76,7 @@ public class CollectableItem : MonoBehaviour
     }
     void OnDrawGizmos() {
         //shows our interaction collision box
-        if (GlobalVariables.showDebugLinesGlobal) {
+        if (SceneManager.Instance.showDebugLines) {
             Gizmos.color = Color.green;
             Gizmos.DrawCube(this.transform.position, interactionBox.size);
         }    

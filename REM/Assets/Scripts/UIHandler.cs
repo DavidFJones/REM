@@ -61,4 +61,9 @@ public class UIHandler : MonoBehaviour
         crossHair.sprite = crossHairImage;
         crossHair.rectTransform.sizeDelta = new Vector2(5, 5); 
     }
+
+    public void testMSG(string message) {
+        raycastMessage.text = message;
+        print(message);
+    }
 }
