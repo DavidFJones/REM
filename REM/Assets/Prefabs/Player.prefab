@@ -367,10 +367,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ac5935a604605409776113f592b1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastMessage: {fileID: 2932054372532179882}
+  hudText: {fileID: 2932054372532179882}
   gameplayHUD: {fileID: 6921534968286131432}
   crossHair: {fileID: 1673650120847286547}
-  crossHairImage: {fileID: 21300000, guid: bf43e61be22bb3d4f874c0005df553f7, type: 3}
+  defaultCrossHair: {fileID: 21300000, guid: bf43e61be22bb3d4f874c0005df553f7, type: 3}
   handCrossHair: {fileID: 21300000, guid: 5e463fc0b5c28ac458b783799242a00b, type: 3}
   lockCrossHair: {fileID: 21300000, guid: 8ce5445ffe5c1c14c83178f26a1c8ff5, type: 3}
   changeDoorMessage: 1

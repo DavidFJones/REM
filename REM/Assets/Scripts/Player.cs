@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
-                        SceneManager.Instance.playerUI.HUDMessageDoor("Interact", hitObject.transform.parent.transform.parent.gameObject);
+                        SceneManager.Instance.playerUI.HUDMessageInteract();
                         break;
                     default:
                         Debug.LogError("Player looked at an interactive object without a proper interaction type " + hitObject, hitObject);
