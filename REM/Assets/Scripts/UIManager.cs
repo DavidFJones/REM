@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIHandler : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     public Text raycastMessage;
 
@@ -18,7 +18,7 @@ public class UIHandler : MonoBehaviour
     private IEnumerator doorMessageTimer;
 
     public void HUDMessageDoor(string message, GameObject door) {
-        if(changeDoorMessage)
+        if (changeDoorMessage)
             raycastMessage.text = message;
             crossHair.sprite = handCrossHair;
             crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
@@ -46,7 +46,7 @@ public class UIHandler : MonoBehaviour
             crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
             crossHair.sprite = handCrossHair;
         }
-        
+
     }
 
     public void HUDMessageFull() {
@@ -59,7 +59,7 @@ public class UIHandler : MonoBehaviour
         raycastMessage.text = "";
         changeDoorMessage = true;
         crossHair.sprite = crossHairImage;
-        crossHair.rectTransform.sizeDelta = new Vector2(5, 5); 
+        crossHair.rectTransform.sizeDelta = new Vector2(5, 5);
     }
 
     public void testMSG(string message) {

@@ -137,15 +137,15 @@ public class Door : MonoBehaviour {
 
             }
         } else { // The door is locked and we do not have the key
-            foreach (GameObject item in SceneManager.Instance.playerInventory.inventory) {
+            foreach (GameObject item in SceneManager.Instance.player.inventory) {
                 if (GameObject.ReferenceEquals(item, keyObject)) {
-                    SceneManager.Instance.uIManager.HUDMessageDoor("Door unlocked", gameObject);
+                    SceneManager.Instance.playerUI.HUDMessageDoor("Door unlocked", gameObject);
                     unlocked = true;
                     break;
                 }
             }
             if (!unlocked)
-                SceneManager.Instance.uIManager.HUDMessageDoor("Door is locked", gameObject);
+                SceneManager.Instance.playerUI.HUDMessageDoor("Door is locked", gameObject);
         }
 
         //Sets our door animator state to match our enum state

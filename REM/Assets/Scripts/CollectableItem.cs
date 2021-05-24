@@ -74,13 +74,6 @@ public class CollectableItem : MonoBehaviour
         //Stores our current velocity for the next frame
         previousVelocity = rb.velocity.magnitude;
     }
-    void OnDrawGizmos() {
-        //shows our interaction collision box
-        if (SceneManager.Instance.showDebugLines) {
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(this.transform.position, interactionBox.size);
-        }    
-    }
 
     void OnValidate() {
         interactionBox.size = gameObject.transform.GetComponent<Collider>().bounds.size * .5f + interactionScale;

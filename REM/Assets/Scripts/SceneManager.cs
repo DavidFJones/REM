@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    //public PlayerController playerController;
     [HideInInspector]
-    public PlayerInventory playerInventory;
+    public Player player;
     [HideInInspector]
-    public UIHandler uIManager;
+    public UIManager playerUI;
     [HideInInspector]
     public AudioManager audioManager;
 
@@ -28,8 +27,8 @@ public class SceneManager : MonoBehaviour
 
         //Cache references to all glogbally accessable classes
         audioManager = FindObjectOfType<AudioManager>();
-        uIManager = FindObjectOfType<UIHandler>();
-        playerInventory = FindObjectOfType<PlayerInventory>();
+        playerUI = FindObjectOfType<UIManager>();
+        player = FindObjectOfType<Player>();
 
     }
 
