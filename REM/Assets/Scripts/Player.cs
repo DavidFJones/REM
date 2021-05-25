@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    bool paused = false;//Bool to determine if the game state is paused
 
     Camera playerCamera;//The players camera
+
+    PlayerInput playerInput;//Our players input action controller
+    string currentDeviceType;//What input device our player is using/last used
 
     //Player Look/Camera Movement Code -----------------------------
     [Header("Look Sensitivity")]
@@ -92,6 +94,10 @@ public class Player : MonoBehaviour
         //Get reference to our players camera
         playerCamera = Camera.main;
 
+        //Get our player input action controller
+        playerInput = gameObject.GetComponent<PlayerInput>();
+        currentDeviceType = playerInput.currentControlScheme;
+
         //Get our player's rigibody and collider on start
         rb = gameObject.GetComponent<Rigidbody>();
         playerCollider = gameObject.GetComponent<CapsuleCollider>();
@@ -109,6 +115,18 @@ public class Player : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
         playerCamera.transform.localEulerAngles = new Vector3(-rotationY, gameObject.transform.rotation.x, 0);
+
+        if(currentDeviceType != playerInput.currentControlScheme) {
+            currentDeviceType = playerInput.currentControlScheme;
+            if(currentDeviceType == "Keyboard&Mouse" && SceneManager.Instance.gamePaused) {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            } else if (currentDeviceType != "Keyboard&Mouse" && SceneManager.Instance.gamePaused) {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+        
     }
     void FixedUpdate() {
         //This is the angle of our camera. Without needing to convert 90deg up or down is equal to .7
@@ -262,18 +280,35 @@ public class Player : MonoBehaviour
     }
     //Pause the game
     public void Pause(InputAction.CallbackContext context) {
-        if (paused) {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            paused = false;
-        } else {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            paused = true;
+        if (context.started) {
+            if (SceneManager.Instance.PauseGame()) {
+                //we are paused
+                SceneManager.Instance.playerUI.pauseHUD.SetActive(true);
+                SceneManager.Instance.playerUI.gameplayHUD.SetActive(false);
+                playerInput.SwitchCurrentActionMap("UI");
+
+                if(currentDeviceType == "Keyboard&Mouse") {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                
+            } else {
+                //we are not paused
+                SceneManager.Instance.playerUI.pauseHUD.SetActive(false);
+                SceneManager.Instance.playerUI.gameplayHUD.SetActive(true);
+                playerInput.SwitchCurrentActionMap("Player");
+
+                if (currentDeviceType == "Keyboard&Mouse") {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = true;
+                }
+            }
+            
         }
+        
     }
-    //Grab the selected object and attempt to put it in our inventory
-    public void grabItem(GameObject item) {
+//Grab the selected object and attempt to put it in our inventory
+public void grabItem(GameObject item) {
         if (inventory.Count < inventoryLimit) {
             inventory.Add(item);
             item.SetActive(false);

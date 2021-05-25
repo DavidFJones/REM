@@ -11,6 +11,9 @@ public class SceneManager : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
 
+   
+    public bool gamePaused = false;//Controls whether the games state is currently paused or not
+
     //Allows us to show our debug lines globally
     public bool showDebugLines = false;
 
@@ -43,6 +46,22 @@ public class SceneManager : MonoBehaviour
         }
 
         return InteractionType.Null;
+    }
+
+    //Pauses the game
+    public bool PauseGame() {
+        //If we are  paused, change the game state to unpaused
+        if (gamePaused) {
+            gamePaused = false;
+            Time.timeScale = 1f;
+            return gamePaused;
+        }
+        //We are not paused, pause the gamestate
+        else {
+            gamePaused = true;
+            Time.timeScale = 0f;
+            return gamePaused;
+        }  
     }
 
 }

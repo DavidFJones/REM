@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text hudText;//The central text element of our hud during standard gameplay
+    public Canvas mainCanvas;//The main ui canvas all elements sit inside of
 
+    
+    // Main Gameplay HUD -------------------------------------
+    [Header("Main Game HUD")]
     public GameObject gameplayHUD;//The container for our gameplay hud
-    public Image crossHair;//That image/location of crosshair. This image will render one of several sprites at the center of the screen
 
+    public Text hudText;//The central text element of our hud during standard gameplay
+  
+    public Image crossHair;//That image/location of crosshair. This image will render one of several sprites at the center of the screen
     public Sprite defaultCrossHair;//The default crosshair image on our hud
     public Sprite handCrossHair;//The hand crosshair icon on our hud
     public Sprite lockCrossHair;//The lock crosshair icon on our hud
@@ -17,7 +22,19 @@ public class UIManager : MonoBehaviour
 
     HUDMessages lastMessage;//Used to see what our last message was
     GameObject lastItem;//The last item we looked at
-    
+    //------------------------------------------------------
+
+    //Pause Screen HUD--------------------------------------
+    [Header("Pause Game HUD")]
+    public GameObject pauseHUD;//The container for our pause HUD
+    public Image opaqueBackground;
+    //------------------------------------------------------
+
+    private void Awake() {
+        Vector2 hudSize = mainCanvas.GetComponent<RectTransform>().sizeDelta;
+        opaqueBackground.GetComponent<RectTransform>().sizeDelta = hudSize;
+    }
+
     //used as a timer to set how long holdmessage bool is true for
     IEnumerator HoldTimer(float waitTime) {
         holdMessage = true;
