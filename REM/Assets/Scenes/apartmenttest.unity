@@ -537,6 +537,10 @@ PrefabInstance:
       propertyPath: playerInput.m_Name
       value: Player Input
       objectReference: {fileID: 0}
+    - target: {fileID: 8364629536799524057, guid: 5ad5e14239b2f664ca4132e968a7aafb, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 277208755}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5e14239b2f664ca4132e968a7aafb, type: 3}
 --- !u!1 &75680765
@@ -1214,6 +1218,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14e4e479b0ada4d49bfe66d6f080bb7c, type: 3}
+--- !u!1 &277208755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1991444659837603768, guid: 5ad5e14239b2f664ca4132e968a7aafb, type: 3}
+  m_PrefabInstance: {fileID: 39476101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &278268241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4971474634852902, guid: eab9a1e97bf14904698f6ed18fd7e3e2, type: 3}

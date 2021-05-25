@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
     Camera playerCamera;//The players camera
 
-    PlayerInput playerInput;//Our players input action controller
-    string currentDeviceType;//What input device our player is using/last used
+    [HideInInspector]
+    public PlayerInput playerInput;//Our players input action controller
+    [HideInInspector]
+    public string currentDeviceType;//What input device our player is using/last used
 
     //Player Look/Camera Movement Code -----------------------------
     [Header("Look Sensitivity")]
@@ -54,8 +57,11 @@ public class Player : MonoBehaviour
     public bool inventoryFull = false;
     //--------------------------------------------------------------
 
-    //Developer Options
+    //Fixes for the bad button highlighting ------------------------
+    Selectable[] selectables;
+    //--------------------------------------------------------------
 
+    //Developer Options --------------------------------------------
     [Header("Developer Options")]
     //Player Inventory Code ----------------------------------------
     [SerializeField]
@@ -104,6 +110,9 @@ public class Player : MonoBehaviour
         //Sets the default radius and distance for our ground spherecast
         sphereRadius = playerCollider.radius + .2f;
         sphereDistance = playerCollider.height * 0.25f;
+
+        selectables = SceneManager.Instance.playerUI.pauseParent.GetComponentsInChildren<Selectable>(true);
+        
     }
 
     void Update() {
@@ -115,9 +124,24 @@ public class Player : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
         playerCamera.transform.localEulerAngles = new Vector3(-rotationY, gameObject.transform.rotation.x, 0);
-
-        if(currentDeviceType != playerInput.currentControlScheme) {
+        
+        if (currentDeviceType != playerInput.currentControlScheme) {
             currentDeviceType = playerInput.currentControlScheme;
+            /*
+            if(currentDeviceType == "Keyboard&Mouse") {
+                Navigation n = new Navigation();
+                n.mode = Navigation.Mode.None;
+                foreach (Selectable selectableUI in selectables) {
+                    selectableUI.navigation = n;
+                }
+            } else {
+                Navigation n = new Navigation();
+                n.mode = Navigation.Mode.Explicit;
+                foreach (Selectable selectableUI in selectables) {
+                    selectableUI.navigation = n;
+                }
+            }*/
+
             if(currentDeviceType == "Keyboard&Mouse" && SceneManager.Instance.gamePaused) {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -281,34 +305,12 @@ public class Player : MonoBehaviour
     //Pause the game
     public void Pause(InputAction.CallbackContext context) {
         if (context.started) {
-            if (SceneManager.Instance.PauseGame()) {
-                //we are paused
-                SceneManager.Instance.playerUI.pauseHUD.SetActive(true);
-                SceneManager.Instance.playerUI.gameplayHUD.SetActive(false);
-                playerInput.SwitchCurrentActionMap("UI");
-
-                if(currentDeviceType == "Keyboard&Mouse") {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
-                
-            } else {
-                //we are not paused
-                SceneManager.Instance.playerUI.pauseHUD.SetActive(false);
-                SceneManager.Instance.playerUI.gameplayHUD.SetActive(true);
-                playerInput.SwitchCurrentActionMap("Player");
-
-                if (currentDeviceType == "Keyboard&Mouse") {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = true;
-                }
-            }
-            
+            SceneManager.Instance.playerUI.PauseGame();
         }
         
     }
-//Grab the selected object and attempt to put it in our inventory
-public void grabItem(GameObject item) {
+    //Grab the selected object and attempt to put it in our inventory
+    public void grabItem(GameObject item) {
         if (inventory.Count < inventoryLimit) {
             inventory.Add(item);
             item.SetActive(false);

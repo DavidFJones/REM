@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,13 +27,88 @@ public class UIManager : MonoBehaviour
 
     //Pause Screen HUD--------------------------------------
     [Header("Pause Game HUD")]
-    public GameObject pauseHUD;//The container for our pause HUD
-    public Image opaqueBackground;
+    public Text pauseText;// The text at the top of our pause menu
+    public GameObject pauseParent;//The parent for all our pause huds
+    public GameObject pauseHUD, optionsHUD, quitConfirmHUD;//Containers for our various pause HUDS
+    public Image opaqueBackground;// The transparent background that goes behind the hud
+    public GameObject defaultPauseButton, defaultOptionsButton, defaultQuitButton;//The default selection for each of our seperate pause huds
     //------------------------------------------------------
 
     private void Awake() {
         Vector2 hudSize = mainCanvas.GetComponent<RectTransform>().sizeDelta;
         opaqueBackground.GetComponent<RectTransform>().sizeDelta = hudSize;
+    }
+
+    //Pause The Game
+    public void PauseGame() {
+        if (SceneManager.Instance.PauseGame()) {
+            //we are paused
+            pauseParent.SetActive(true);
+            opaqueBackground.gameObject.SetActive(true);
+            gameplayHUD.SetActive(false);
+            pauseHUD.SetActive(true);
+
+            //Clears our currently selected ui elemet
+            EventSystem.current.SetSelectedGameObject(null);
+            //Sets our selected ui element
+            EventSystem.current.SetSelectedGameObject(defaultPauseButton);
+
+            if (SceneManager.Instance.player.currentDeviceType == "Keyboard&Mouse") {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+
+        } else {
+            //we are not paused
+            pauseParent.SetActive(false);
+            pauseHUD.SetActive(false);
+            opaqueBackground.gameObject.SetActive(false);
+            gameplayHUD.SetActive(true);
+            
+
+            if (SceneManager.Instance.player.currentDeviceType == "Keyboard&Mouse") {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = true;
+            }
+        }
+    }
+
+    public void OpenOptions() {
+        //Clears our currently selected ui elemet
+        EventSystem.current.SetSelectedGameObject(null);
+        //Sets our selected ui element
+        EventSystem.current.SetSelectedGameObject(defaultOptionsButton);
+        pauseHUD.SetActive(false);
+        optionsHUD.SetActive(true);
+    }
+    public void CloseOptions() {
+        //Clears our currently selected ui elemet
+        EventSystem.current.SetSelectedGameObject(null);
+        //Sets our selected ui element
+        EventSystem.current.SetSelectedGameObject(defaultPauseButton);
+        optionsHUD.SetActive(false);
+        pauseHUD.SetActive(true);
+    }
+    public void OpenQuit() {
+        //Clears our currently selected ui elemet
+        EventSystem.current.SetSelectedGameObject(null);
+        //Sets our selected ui element
+        EventSystem.current.SetSelectedGameObject(defaultQuitButton);
+        pauseText.text = "QUIT";
+        quitConfirmHUD.SetActive(true);
+        pauseHUD.SetActive(false);
+    }
+    public void CloseQuit() {
+        //Clears our currently selected ui elemet
+        EventSystem.current.SetSelectedGameObject(null);
+        //Sets our selected ui element
+        EventSystem.current.SetSelectedGameObject(defaultPauseButton);
+        pauseText.text = "PAUSED";
+        quitConfirmHUD.SetActive(false);
+        pauseHUD.SetActive(true);
+    }
+    public void QuitGame() {
+        Application.Quit();
     }
 
     //used as a timer to set how long holdmessage bool is true for

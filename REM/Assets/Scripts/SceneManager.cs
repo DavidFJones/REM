@@ -54,12 +54,14 @@ public class SceneManager : MonoBehaviour
         if (gamePaused) {
             gamePaused = false;
             Time.timeScale = 1f;
+            SceneManager.Instance.player.playerInput.SwitchCurrentActionMap("Player");
             return gamePaused;
         }
         //We are not paused, pause the gamestate
         else {
             gamePaused = true;
             Time.timeScale = 0f;
+            SceneManager.Instance.player.playerInput.SwitchCurrentActionMap("UI");
             return gamePaused;
         }  
     }
