@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
     public GameObject pauseHUD, optionsHUD, quitConfirmHUD;//Containers for our various pause HUDS
     public Image opaqueBackground;// The transparent background that goes behind the hud
     public GameObject defaultPauseButton, defaultOptionsButton, defaultQuitButton;//The default selection for each of our seperate pause huds
+    [HideInInspector]
+    public PauseState state = PauseState.None;//Current state of pause menu
     //------------------------------------------------------
 
     private void Awake() {
@@ -47,6 +49,7 @@ public class UIManager : MonoBehaviour
             opaqueBackground.gameObject.SetActive(true);
             gameplayHUD.SetActive(false);
             pauseHUD.SetActive(true);
+            state = PauseState.Pause;
 
             //Clears our currently selected ui elemet
             EventSystem.current.SetSelectedGameObject(null);
@@ -64,7 +67,9 @@ public class UIManager : MonoBehaviour
             pauseHUD.SetActive(false);
             opaqueBackground.gameObject.SetActive(false);
             gameplayHUD.SetActive(true);
-            
+
+            state = PauseState.None;
+
 
             if (SceneManager.Instance.player.currentDeviceType == "Keyboard&Mouse") {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -80,6 +85,7 @@ public class UIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(defaultOptionsButton);
         pauseHUD.SetActive(false);
         optionsHUD.SetActive(true);
+        state = PauseState.Options;
     }
     public void CloseOptions() {
         //Clears our currently selected ui elemet
@@ -88,6 +94,7 @@ public class UIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(defaultPauseButton);
         optionsHUD.SetActive(false);
         pauseHUD.SetActive(true);
+        state = PauseState.Pause;
     }
     public void OpenQuit() {
         //Clears our currently selected ui elemet
@@ -97,6 +104,7 @@ public class UIManager : MonoBehaviour
         pauseText.text = "QUIT";
         quitConfirmHUD.SetActive(true);
         pauseHUD.SetActive(false);
+        state = PauseState.Quit;
     }
     public void CloseQuit() {
         //Clears our currently selected ui elemet
@@ -106,6 +114,7 @@ public class UIManager : MonoBehaviour
         pauseText.text = "PAUSED";
         quitConfirmHUD.SetActive(false);
         pauseHUD.SetActive(true);
+        state = PauseState.Pause;
     }
     public void QuitGame() {
         Application.Quit();

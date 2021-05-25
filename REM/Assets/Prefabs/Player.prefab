@@ -3314,8 +3314,9 @@ MonoBehaviour:
   quitConfirmHUD: {fileID: 6642168705932989408}
   opaqueBackground: {fileID: 5927349971685692768}
   defaultPauseButton: {fileID: 5649124128138544817}
-  defaultOptionsButton: {fileID: 107707787573978223}
+  defaultOptionsButton: {fileID: 169258382175857747}
   defaultQuitButton: {fileID: 532642586901255555}
+  state: 3
 --- !u!33 &8022341166985711128
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3525,9 +3526,37 @@ MonoBehaviour:
     m_ActionId: 1000b8e7-379a-4f02-9942-43b13e5284cd
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8185377757799743221}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a4416028-aa64-4f1d-9e8b-a5001334b762
     m_ActionName: UI/Pause[/Keyboard/backquote,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8185377757799743221}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Back
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 04031cb0-1751-44e0-8547-dbc2eaafb222
+    m_ActionName: UI/Back[/XInputControllerWindows/buttonEast,/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
     public static void PlaySound(AudioSource source, AudioClip clip) {
         if (clip != null)
             source.clip = clip;
-
+        source.Stop();
         source.Play();
     }
     //Stops audio at a given source

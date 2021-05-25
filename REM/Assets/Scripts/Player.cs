@@ -309,6 +309,27 @@ public class Player : MonoBehaviour
         }
         
     }
+    //Called when we press the back button while in the pause menu
+    //THIS CURRENTLY DOESN'T WORK
+    public void Back(InputAction.CallbackContext context) {
+        print("here");
+        if (context.started) {
+            switch (SceneManager.Instance.playerUI.state) {
+                case (PauseState.Pause):
+                    SceneManager.Instance.playerUI.PauseGame();
+                    break;
+                case (PauseState.Options):
+                    SceneManager.Instance.playerUI.CloseOptions();
+                    break;
+                case (PauseState.Quit):
+                    SceneManager.Instance.playerUI.CloseQuit();
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
     //Grab the selected object and attempt to put it in our inventory
     public void grabItem(GameObject item) {
         if (inventory.Count < inventoryLimit) {

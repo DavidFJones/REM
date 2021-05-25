@@ -354,6 +354,14 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""04031cb0-1751-44e0-8547-dbc2eaafb222"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -796,6 +804,28 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3dba18b2-790f-4fee-af1e-d021a49dd4ea"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""875f9e57-075a-494d-aee2-1124553307eb"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -882,6 +912,7 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -999,6 +1030,7 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_Pause;
+    private readonly InputAction m_UI_Back;
     public struct UIActions
     {
         private @FirstPersonControls m_Wrapper;
@@ -1014,6 +1046,7 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        public InputAction @Back => m_Wrapper.m_UI_Back;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1056,6 +1089,9 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Back.started -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1093,6 +1129,9 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
             }
         }
     }
@@ -1162,5 +1201,6 @@ public class @FirstPersonControls : IInputActionCollection, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }

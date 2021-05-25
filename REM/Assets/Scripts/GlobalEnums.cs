@@ -19,3 +19,11 @@ public enum HUDMessages {
     UnlockDoor,//We unlocked a door
     None//Last thing we did was clear the hud
 }
+
+//What state of the paused hud we are currently viewing
+public enum PauseState {
+    Pause,
+    Options,
+    Quit,
+    None
+}
