@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         sphereRadius = playerCollider.radius + .2f;
         sphereDistance = playerCollider.height * 0.25f;
 
-        selectables = SceneManager.Instance.playerUI.pauseParent.GetComponentsInChildren<Selectable>(true);
+        //selectables = SceneManager.Instance.playerUI.pauseParent.GetComponentsInChildren<Selectable>(true);
         
     }
 
