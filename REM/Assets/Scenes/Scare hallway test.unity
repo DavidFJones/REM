@@ -250,12 +250,12 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ac5834d2d82ca8247803dda05dd4efbe, type: 2}
     - target: {fileID: 4171041212705059700, guid: 14a73348126c0e54982d4c166a4cf549, type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4171041212705059700, guid: 14a73348126c0e54982d4c166a4cf549, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].key
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -4347925776592323329, guid: ac5834d2d82ca8247803dda05dd4efbe, type: 2}
     - target: {fileID: 4171041212705059700, guid: 14a73348126c0e54982d4c166a4cf549, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
@@ -908,7 +908,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18728
+  m_Name: pb_Mesh18738
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
