@@ -3281,6 +3281,8 @@ MonoBehaviour:
   verticalSensitivity: 3
   inventory: []
   inventoryFull: 0
+  currentHealth: 0
+  startingHealth: 3
   inventoryLimit: 8
   accelertaion: 5500
   maxSpeed: 1
@@ -3721,7 +3723,7 @@ Camera:
   m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

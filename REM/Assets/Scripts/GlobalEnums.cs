@@ -27,3 +27,10 @@ public enum PauseState {
     Quit,
     None
 }
+
+public enum mGhostState {
+    Waiting,
+    Hunting,
+    Cooldown,
+    Idle
+}

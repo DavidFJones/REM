@@ -57,12 +57,21 @@ public class Player : MonoBehaviour
     public bool inventoryFull = false;
     //--------------------------------------------------------------
 
+    //Health code --------------------------------------------------
+    [HideInInspector]
+    public int currentHealth;//Players current health
+    //--------------------------------------------------------------
+
     //Fixes for the bad button highlighting ------------------------
     Selectable[] selectables;
     //--------------------------------------------------------------
 
     //Developer Options --------------------------------------------
     [Header("Developer Options")]
+    //Health code --------------------------------------------------
+    [Tooltip("How much health does the player start with?")]
+    public int startingHealth = 3;
+    //--------------------------------------------------------------
     //Player Inventory Code ----------------------------------------
     [SerializeField]
     [Tooltip("How many items the players inventory can hold in total")]
@@ -74,7 +83,7 @@ public class Player : MonoBehaviour
     private float accelertaion = 5500f;
     [SerializeField]
     [Tooltip("Caps the players maximum speed. Regardless of acceleration they cannot exceed this speed")]
-    private float maxSpeed = 7f;
+    public float maxSpeed = 7f;
     [SerializeField]
     [Tooltip("The highest step the player can walk up")]
     private float maxStepHeight = .2f;
@@ -112,7 +121,9 @@ public class Player : MonoBehaviour
         sphereDistance = playerCollider.height * 0.25f;
 
         //selectables = SceneManager.Instance.playerUI.pauseParent.GetComponentsInChildren<Selectable>(true);
-        
+
+        //Sets the players current health
+        currentHealth = startingHealth;
     }
 
     void Update() {
@@ -344,5 +355,16 @@ public class Player : MonoBehaviour
     public void Look(InputAction.CallbackContext context) {
         Vector2 look = context.ReadValue<Vector2>();
         lookDirection = new Vector2(look.x, look.y);
+    }
+    //Called when we are hit by an enemy
+    public void enemyHit() {
+        print("we have been hit!");
+        currentHealth--;
+        if (currentHealth <= 0)
+            die();
+    }
+    //called when the player is killed
+    public void die() {
+        print("We are dead");
     }
 }

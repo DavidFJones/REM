@@ -5,17 +5,24 @@ using UnityEngine;
 public class SceneManager : MonoBehaviour
 {
     [HideInInspector]
-    public Player player;
+    public Player player;// Our player character
     [HideInInspector]
-    public UIManager playerUI;
+    public UIManager playerUI;//The players UI
     [HideInInspector]
-    public AudioManager audioManager;
+    public AudioManager audioManager;// Our global audio Manager
+    [HideInInspector]
+    public MirrorHuntZone currentMirror;//The mirror our currently is standing in
+    [HideInInspector]
+    public MirrorHuntZone activeMirror;//The mirror that is currently active
 
-   
+
     public bool gamePaused = false;//Controls whether the games state is currently paused or not
 
-    //Allows us to show our debug lines globally
+    [Tooltip("Display debug lines and hitboxes for various things")]
     public bool showDebugLines = false;
+
+    [Tooltip("Allows the player to see the mirror ghost outside of reflections")]
+    public bool showMirrorGhost = false;
 
     //Instance of this Scene Manager
     public static SceneManager Instance { get; private set; }
@@ -33,6 +40,10 @@ public class SceneManager : MonoBehaviour
         playerUI = FindObjectOfType<UIManager>();
         player = FindObjectOfType<Player>();
 
+        //Allows the player to see the mirror ghost if they have the debug option set in the scene manager
+        if (showMirrorGhost) {
+            Camera.main.cullingMask |= (1 << LayerMask.NameToLayer("MirrorGhost"));
+        }
     }
 
     //Returns the type of object the player interacted with
