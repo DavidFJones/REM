@@ -100,6 +100,14 @@ public class Player : MonoBehaviour
     GameObject hitObject;//object we have currently hit with our raycast
     // -------------------------------------------------------------
 
+    // ViewBobbing Code --------------------------------------------
+    public float walkingBobbingSpeed = 14f;
+    public float bobbingAmount = 0.05f;
+
+    float defaultCamPosY = 0;
+    float viewBobTimer = 0;
+    // -------------------------------------------------------------
+
 
     void Awake() {
         //This should be moved to a global game script maybe?
@@ -108,6 +116,9 @@ public class Player : MonoBehaviour
 
         //Get reference to our players camera
         playerCamera = Camera.main;
+
+        //Sets the cameras default position
+        defaultCamPosY = playerCamera.transform.localPosition.y;
 
         //Get our player input action controller
         playerInput = gameObject.GetComponent<PlayerInput>();
@@ -220,7 +231,7 @@ public class Player : MonoBehaviour
             //Disable the gravity and fix our drag/mass by default
             rb.useGravity = false;
             rb.drag = 5;
-            rb.mass = 1;
+            //rb.mass = 1;
             //checks the x and z rotation of the hit object
             float rotX = Mathf.Abs(hitFloor.transform.rotation.x);
             float rotZ = Mathf.Abs(hitFloor.transform.rotation.z);
@@ -245,13 +256,13 @@ public class Player : MonoBehaviour
             } else if (currentSlopeAngle > maxSlope) {
                 rb.useGravity = true;
                 rb.drag = 0;
-                rb.mass = 5;
+                //rb.mass = 5;
             }
         } else {
             //If we are not touching a ground surface, enable gravity to the player can fall
             rb.useGravity = true;
             rb.drag = 0;
-            rb.mass = 10;
+            //rb.mass = 10;
             currentHitDistance = sphereDistance;
             currentSlopeAngle = 0;
         }
@@ -259,6 +270,18 @@ public class Player : MonoBehaviour
         //Pushes our player relative to the movement direction
         rb.AddRelativeForce(movement * accelertaion * Time.deltaTime);
 
+        //This code clamps our x/z speed while maintaining our y
+        //Saves our current y velocity
+        float tempY = rb.velocity.y;
+
+        if(rb.velocity.magnitude > maxSpeed) {
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+        }
+        rb.velocity = new Vector3(rb.velocity.x, tempY, rb.velocity.z);
+
+
+
+        /*
         //Clamp our max velocity to our max speed value
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
@@ -271,10 +294,16 @@ public class Player : MonoBehaviour
             currentSpeedMagnitute = 0;
         }
         //---------------------------------------------------------------
-    }
+        */
 
-    //Called when the player presses the interaction button
-    public void Interact(InputAction.CallbackContext context) {
+        // ViewBobbing Code --------------------------------------------
+
+
+        // -------------------------------------------------------------
+}
+
+//Called when the player presses the interaction button
+public void Interact(InputAction.CallbackContext context) {
         //If we pressed the interact button
         if (context.started) {
             //And we are looking at an interactive item, do the thing
