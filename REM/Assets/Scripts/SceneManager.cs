@@ -24,6 +24,9 @@ public class SceneManager : MonoBehaviour
     [Tooltip("Allows the player to see the mirror ghost outside of reflections")]
     public bool showMirrorGhost = false;
 
+    [Tooltip("Toggles whether or not the view bob is turned on")]
+    public bool viewBob = true;
+
     //Instance of this Scene Manager
     public static SceneManager Instance { get; private set; }
 
