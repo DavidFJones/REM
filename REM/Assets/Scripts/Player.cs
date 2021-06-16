@@ -282,18 +282,22 @@ public class Player : MonoBehaviour
 
         //---------------------------------------------------------------
 
-        // ViewBobbing Code --------------------------------------------
-        //Checks to see if we have view bobbing enabled in the settings/scene manager
-        if (SceneManager.Instance.viewBob) {
-            //Checks to see if we are moving x or z
-            if (Mathf.Abs(rb.velocity.x) > 0.1f || Mathf.Abs(rb.velocity.z) > 0.1f) {
-                viewBobTimer += Time.deltaTime * walkingBobbingSpeed;
+        // ViewBobbing Code  & footseps audio code ----------------------
+        
+        //Checks to see if we are moving x or z
+        if (Mathf.Abs(rb.velocity.x) > 0.1f || Mathf.Abs(rb.velocity.z) > 0.1f) {
+            viewBobTimer += Time.deltaTime * (walkingBobbingSpeed + maxSpeed);
+            //Checks to see if we have view bobbing enabled in the settings/scene manager
+            if (SceneManager.Instance.viewBob) {
                 playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, defaultCamPosY + Mathf.Sin(viewBobTimer) * bobbingAmount, playerCamera.transform.localPosition.z);
-            } else { // We are not moving
-                viewBobTimer = 0;
-                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, defaultCamPosY, Time.deltaTime * walkingBobbingSpeed), playerCamera.transform.localPosition.z);
+            }         
+        } else { // We are not moving
+            viewBobTimer = 0;
+            if (SceneManager.Instance.viewBob) {
+                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, defaultCamPosY, Time.deltaTime * (walkingBobbingSpeed + maxSpeed)), playerCamera.transform.localPosition.z);
             }
         }
+        
         // -------------------------------------------------------------
 }
 
