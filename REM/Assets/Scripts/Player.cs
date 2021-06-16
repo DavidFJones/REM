@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     // -------------------------------------------------------------
 
     //Player Movement Code -----------------------------------------
-    private float currentSpeedMagnitute = 0;//What our current speed magnitute is
     private Vector3 movement = Vector3.zero; // The sum of the players movement inputs
 
     private float sphereDistance; //How far our grounding spherecast travels
@@ -39,6 +38,11 @@ public class Player : MonoBehaviour
 
     Rigidbody rb;
     CapsuleCollider playerCollider;
+    // -------------------------------------------------------------
+
+    // ViewBobbing Code --------------------------------------------
+    float defaultCamPosY = 0;
+    float viewBobTimer = 0;
     // -------------------------------------------------------------
 
     //Viewport Raycast Code ----------------------------------------
@@ -98,14 +102,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("This is what object we have currently hit with our raycast")]
     GameObject hitObject;//object we have currently hit with our raycast
-    // -------------------------------------------------------------
-
     // ViewBobbing Code --------------------------------------------
-    public float walkingBobbingSpeed = 14f;
-    public float bobbingAmount = 0.05f;
-
-    float defaultCamPosY = 0;
-    float viewBobTimer = 0;
+    [Header("View Bobbing")]
+    [SerializeField]
+    [Tooltip("How long it takes for us to complete a full view bob")]
+    private float walkingBobbingSpeed = 14f;
+    [SerializeField]
+    [Tooltip("How much the camera bobs up and down")]
+    private float bobbingAmount = 0.05f;
     // -------------------------------------------------------------
 
 
@@ -231,7 +235,6 @@ public class Player : MonoBehaviour
             //Disable the gravity and fix our drag/mass by default
             rb.useGravity = false;
             rb.drag = 5;
-            //rb.mass = 1;
             //checks the x and z rotation of the hit object
             float rotX = Mathf.Abs(hitFloor.transform.rotation.x);
             float rotZ = Mathf.Abs(hitFloor.transform.rotation.z);
@@ -256,13 +259,11 @@ public class Player : MonoBehaviour
             } else if (currentSlopeAngle > maxSlope) {
                 rb.useGravity = true;
                 rb.drag = 0;
-                //rb.mass = 5;
             }
         } else {
             //If we are not touching a ground surface, enable gravity to the player can fall
             rb.useGravity = true;
             rb.drag = 0;
-            //rb.mass = 10;
             currentHitDistance = sphereDistance;
             currentSlopeAngle = 0;
         }
@@ -279,26 +280,20 @@ public class Player : MonoBehaviour
         }
         rb.velocity = new Vector3(rb.velocity.x, tempY, rb.velocity.z);
 
-
-
-        /*
-        //Clamp our max velocity to our max speed value
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
-
-        //check our current velocity
-        currentSpeedMagnitute = rb.velocity.magnitude;
-
-        //If the player has stopped moving, but the engine is still applying tiny math to the rb, force the rb velocity to 0
-        if (currentSpeedMagnitute < 0.5f) {
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
-            currentSpeedMagnitute = 0;
-        }
         //---------------------------------------------------------------
-        */
 
         // ViewBobbing Code --------------------------------------------
-
-
+        //Checks to see if we have view bobbing enabled in the settings/scene manager
+        if (SceneManager.Instance.viewBob) {
+            //Checks to see if we are moving x or z
+            if (Mathf.Abs(rb.velocity.x) > 0.1f || Mathf.Abs(rb.velocity.z) > 0.1f) {
+                viewBobTimer += Time.deltaTime * walkingBobbingSpeed;
+                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, defaultCamPosY + Mathf.Sin(viewBobTimer) * bobbingAmount, playerCamera.transform.localPosition.z);
+            } else { // We are not moving
+                viewBobTimer = 0;
+                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, defaultCamPosY, Time.deltaTime * walkingBobbingSpeed), playerCamera.transform.localPosition.z);
+            }
+        }
         // -------------------------------------------------------------
 }
 
