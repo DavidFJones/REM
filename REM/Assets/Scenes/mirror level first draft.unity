@@ -15093,6 +15093,10 @@ PrefabInstance:
       value: Scene Manager
       objectReference: {fileID: 0}
     - target: {fileID: 4958672678039398781, guid: d55baa16279fc5942a9ae8bf76970842, type: 3}
+      propertyPath: viewBob
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958672678039398781, guid: d55baa16279fc5942a9ae8bf76970842, type: 3}
       propertyPath: showMirrorGhost
       value: 0
       objectReference: {fileID: 0}
