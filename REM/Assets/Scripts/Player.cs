@@ -66,6 +66,14 @@ public class Player : MonoBehaviour
     public int currentHealth;//Players current health
     //--------------------------------------------------------------
 
+    //Audio code ---------------------------------------------------
+    AudioSource audioSource;//Audio source for player sfx
+    [HideInInspector]
+    public Transform footstepContainer;// Where the footsteps sounds come from
+    float defaultFootPos;//Where the footsteps right side position is
+    bool footRight = true;//If the footstep is on our right or left
+    //--------------------------------------------------------------
+
     //Fixes for the bad button highlighting ------------------------
     Selectable[] selectables;
     //--------------------------------------------------------------
@@ -110,6 +118,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("How much the camera bobs up and down")]
     private float bobbingAmount = 0.05f;
+    //Audio code ---------------------------------------------------
+    [Header("Audio")]
+    [Tooltip("The default sound we play for a players footstep")]
+    public AudioClip defaultStepSound;//The default footstep sound
     // -------------------------------------------------------------
 
 
@@ -136,6 +148,14 @@ public class Player : MonoBehaviour
         sphereDistance = playerCollider.height * 0.25f;
 
         //selectables = SceneManager.Instance.playerUI.pauseParent.GetComponentsInChildren<Selectable>(true);
+
+        //Gets the audio player, and sets the default footstep sound
+        audioSource = footstepContainer.transform.GetComponent<AudioSource>();
+        defaultFootPos = footstepContainer.transform.position.x;
+        if (defaultStepSound != null) {
+            audioSource.clip = defaultStepSound;
+        }
+        
 
         //Sets the players current health
         currentHealth = startingHealth;
@@ -290,7 +310,21 @@ public class Player : MonoBehaviour
             //Checks to see if we have view bobbing enabled in the settings/scene manager
             if (SceneManager.Instance.viewBob) {
                 playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, defaultCamPosY + Mathf.Sin(viewBobTimer) * bobbingAmount, playerCamera.transform.localPosition.z);
-            }         
+            }
+            print(Mathf.Sin(viewBobTimer));
+            //Code to control audio
+            if (Mathf.Sin(viewBobTimer) >= 0.15f && Mathf.Sin(viewBobTimer) <= 0.20f) {
+                audioSource.pitch = Random.Range(0.75f, 1.25f);
+                if (footRight) {
+                    footRight = false;
+                    footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
+                    audioSource.Play();
+                } else {
+                    footRight = true;
+                    footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
+                    audioSource.Play();
+                }
+            }
         } else { // We are not moving
             viewBobTimer = 0;
             if (SceneManager.Instance.viewBob) {
@@ -301,8 +335,8 @@ public class Player : MonoBehaviour
         // -------------------------------------------------------------
 }
 
-//Called when the player presses the interaction button
-public void Interact(InputAction.CallbackContext context) {
+    //Called when the player presses the interaction button
+    public void Interact(InputAction.CallbackContext context) {
         //If we pressed the interact button
         if (context.started) {
             //And we are looking at an interactive item, do the thing
