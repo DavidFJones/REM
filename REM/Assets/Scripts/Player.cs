@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     public Transform footstepContainer;// Where the footsteps sounds come from
     float defaultFootPos;//Where the footsteps right side position is
     bool footRight = true;//If the footstep is on our right or left
+    bool playingFootSound = false;//Checks if we are currently playing our footstep sfx
     //--------------------------------------------------------------
 
     //Fixes for the bad button highlighting ------------------------
@@ -313,16 +314,12 @@ public class Player : MonoBehaviour
             }
             print(Mathf.Sin(viewBobTimer));
             //Code to control audio
-            if (Mathf.Sin(viewBobTimer) >= 0.15f && Mathf.Sin(viewBobTimer) <= 0.20f) {
-                audioSource.pitch = Random.Range(0.75f, 1.25f);
-                if (footRight) {
-                    footRight = false;
-                    footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
-                    audioSource.Play();
-                } else {
-                    footRight = true;
-                    footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
-                    audioSource.Play();
+            if (Mathf.Sin(viewBobTimer) <= -0.3f) {
+                print("call here");
+                //checks to see if we are currently playing our footstep sounds
+                //This has a .25 second delay to prevent footstep sounds from overlapping
+                if (!playingFootSound) {
+                    StartCoroutine(FootstepSoundPlayer());
                 }
             }
         } else { // We are not moving
@@ -362,6 +359,31 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+    //Plays our footstep sounds and prevents it from playing overitself
+    IEnumerator FootstepSoundPlayer() {
+        //Set bool to prevent this coroutine from playing before the sound is done
+        playingFootSound = true;
+
+        audioSource.pitch = Random.Range(0.75f, 1.25f);
+
+        //Sets which side the sound should be played on
+        if (footRight) {
+            footRight = false;
+            footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
+            audioSource.Play();
+        } else {
+            footRight = true;
+            footstepContainer.localPosition = new Vector3(footstepContainer.localPosition.x * -1, footstepContainer.localPosition.y, footstepContainer.localPosition.z);
+            audioSource.Play();
+        }
+
+        //Wait for 0.25 seconds
+        yield return new WaitForSeconds(0.25f);
+
+        //Set bool to false to allow this coroutine to run again
+        playingFootSound = false;
+        
     }
     //Interact with the door we are looking at and see if it should be opened/unlocked
     public void interactDoor(GameObject currentDoor, Vector3 hitPoint, Vector3 playerPos) {
