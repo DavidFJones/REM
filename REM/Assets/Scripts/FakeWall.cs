@@ -24,6 +24,7 @@ public class FakeWall : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(other.tag == "Player") {
             Destroy(reflectedPlayer.GetComponent<ReflectedPlayer>());
+            this.GetComponent<Renderer>().enabled = false;
             Destroy(this);
         }
     }

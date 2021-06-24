@@ -312,10 +312,8 @@ public class Player : MonoBehaviour
             if (SceneManager.Instance.viewBob) {
                 playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, defaultCamPosY + Mathf.Sin(viewBobTimer) * bobbingAmount, playerCamera.transform.localPosition.z);
             }
-            print(Mathf.Sin(viewBobTimer));
             //Code to control audio
             if (Mathf.Sin(viewBobTimer) <= -0.3f) {
-                print("call here");
                 //checks to see if we are currently playing our footstep sounds
                 //This has a .25 second delay to prevent footstep sounds from overlapping
                 if (!playingFootSound) {
