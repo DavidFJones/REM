@@ -14,6 +14,9 @@ public class SceneManager : MonoBehaviour
     public MirrorHuntZone currentMirror;//The mirror our currently is standing in
     [HideInInspector]
     public MirrorHuntZone activeMirror;//The mirror that is currently active
+    [HideInInspector]
+    public M_GhostTeleport lastTeleport;//The last zone the ghost teleported to
+    public GameObject mirrorFunGhost;//The Ghost that chases you in the fun house
 
 
     public bool gamePaused = false;//Controls whether the games state is currently paused or not
