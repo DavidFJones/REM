@@ -2,6 +2,7 @@ public enum InteractionType {
     Key,
     Item,
     Door,
+    Pop,
     Null
 }
 
