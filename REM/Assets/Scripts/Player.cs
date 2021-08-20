@@ -231,9 +231,8 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
-                        SceneManager.Instance.playerUI.HUDMessageInteract();
-                        break;
                     case InteractionType.Pop:
+                    case InteractionType.Mirror_lock:
                         SceneManager.Instance.playerUI.HUDMessageInteract();
                         break;
                     default:
@@ -356,6 +355,9 @@ public class Player : MonoBehaviour
                         break;
                     case InteractionType.Pop:
                         SceneManager.Instance.popPuzzleManager.grabPopMachine(hitObject);
+                        break;
+                    case InteractionType.Mirror_lock:
+                        hitObject.GetComponent<MirrorLock>().openMirror();
                         break;
                     default:
                         Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);

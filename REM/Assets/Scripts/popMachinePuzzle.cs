@@ -7,10 +7,14 @@ public class PopMachinePuzzle : MonoBehaviour {
 
     public GameObject[] machines;
     public GameObject spawnParent;
-    List<Transform> spawnLocations;
+    public List<Transform> spawnLocations;
     public int count = 0;
+    public GameObject popCan;
+    public GameObject key;
+    public AudioClip insertCoinSound;
+    public AudioClip getPopSound;
 
-    void Start() {
+    void Awake() {
 
         foreach (Transform spawn in spawnParent.transform) {
             spawnLocations.Add(spawn);
@@ -30,16 +34,32 @@ public class PopMachinePuzzle : MonoBehaviour {
     public void grabPopMachine(GameObject currentMachine) {
         if (count == 0 && currentMachine == machines[0]) {
             count++;
-            Debug.Log("correct machine 1");
+            correctMachine();
         } else if (count == 1 && currentMachine == machines[1]) {
             count++;
-            Debug.Log("correct machine 2");
+            correctMachine();
         } else if (count == 2 && currentMachine == machines[2]) {
             count++;
-            Debug.Log("correct machine 3");
+            winPopPuzzle(currentMachine);
         } else {
             count = 0;
-            Debug.Log("Give Pop, wrong machine/finished puzzle");
+            giveSoda(currentMachine);
         }
+    }
+    void correctMachine() {
+        //Play Correct Sound Noise
+    }
+    void giveSoda(GameObject currentMachine) {
+        //Spawn soda at the correct location
+        Instantiate(popCan, currentMachine.transform.GetChild(1));
+    }
+    void winPopPuzzle(GameObject currentMachine) {
+        correctMachine();
+        //Drop the key for the player
+        key.SetActive(true);
+        key.transform.position = currentMachine.transform.GetChild(1).transform.position;
+        key.transform.Rotate(Vector3.forward);
+        key.GetComponent<Rigidbody>().isKinematic = false;
+        key.GetComponent<Rigidbody>().useGravity = true;
     }
 }

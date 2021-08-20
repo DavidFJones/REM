@@ -3,6 +3,7 @@ public enum InteractionType {
     Item,
     Door,
     Pop,
+    Mirror_lock,
     Null
 }
 
