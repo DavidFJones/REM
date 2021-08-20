@@ -17,6 +17,7 @@ public class SceneManager : MonoBehaviour
     [HideInInspector]
     public M_GhostTeleport lastTeleport;//The last zone the ghost teleported to
     public GameObject mirrorFunGhost;//The Ghost that chases you in the fun house
+    public PopMachinePuzzle popPuzzleManager;// A static reference to our pop machine puzzle controller
 
 
     public bool gamePaused = false;//Controls whether the games state is currently paused or not

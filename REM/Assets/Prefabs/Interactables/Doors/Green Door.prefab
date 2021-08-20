@@ -159,7 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8988823503550588026}
   - component: {fileID: 2422130580392840151}
-  - component: {fileID: 5289331767231697719}
   m_Layer: 7
   m_Name: Door Container
   m_TagString: Untagged
@@ -201,21 +200,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5289331767231697719
+--- !u!114 &856236562942889600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4567893769200976765}
+  m_GameObject: {fileID: 8145684542119482957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c94679348c11646a3863a43a339830, type: 3}
+  m_Script: {fileID: 11500000, guid: 53e2ce12778674942bf50451cbdf1f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  openSound: {fileID: 0}
-  closedSound: {fileID: 0}
+  type: 2
 --- !u!1001 &6384810950897882320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,9 +220,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8988823503550588026}
     m_Modifications:
+    - target: {fileID: 2986523076176979657, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2994945797527093917, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_Name
       value: Door Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994945797527093917, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
       propertyPath: m_RootOrder
@@ -273,6 +278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
+--- !u!1 &8145684542119482957 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2994945797527093917, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}
+  m_PrefabInstance: {fileID: 6384810950897882320}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8142893785748925053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2997771698537119405, guid: 29a118d946f678b4582e9dcf4801ac1b, type: 3}

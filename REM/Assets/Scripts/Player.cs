@@ -220,7 +220,7 @@ public class Player : MonoBehaviour
             if (hitObject.tag == "Interactable") {
                 canTouch = true;
                 hitPoint = hit.transform.InverseTransformPoint(hit.point);
-                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
+                InteractionType currentType = hitObject.GetComponent<interactionType>().type;
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:
@@ -231,6 +231,9 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
+                        SceneManager.Instance.playerUI.HUDMessageInteract();
+                        break;
+                    case InteractionType.Pop:
                         SceneManager.Instance.playerUI.HUDMessageInteract();
                         break;
                     default:
@@ -336,7 +339,7 @@ public class Player : MonoBehaviour
         if (context.started) {
             //And we are looking at an interactive item, do the thing
             if (canTouch) {
-                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
+                InteractionType currentType = hitObject.GetComponent<interactionType>().type;
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:
@@ -350,6 +353,9 @@ public class Player : MonoBehaviour
                         break;
                     case InteractionType.Door:
                         interactDoor(hitObject, hitPoint, transform.position);
+                        break;
+                    case InteractionType.Pop:
+                        SceneManager.Instance.popPuzzleManager.grabPopMachine(hitObject);
                         break;
                     default:
                         Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);

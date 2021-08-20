@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class popMachinePuzzle : MonoBehaviour
-{
+public class PopMachinePuzzle : MonoBehaviour {
+
     public GameObject[] machines;
     public GameObject spawnParent;
     List<Transform> spawnLocations;
+    public int count = 0;
 
-    void Awake() {
-        
+    void Start() {
+
         foreach (Transform spawn in spawnParent.transform) {
             spawnLocations.Add(spawn);
         }
@@ -24,5 +25,21 @@ public class popMachinePuzzle : MonoBehaviour
 
         Destroy(spawnParent);
 
+    }
+
+    public void grabPopMachine(GameObject currentMachine) {
+        if (count == 0 && currentMachine == machines[0]) {
+            count++;
+            Debug.Log("correct machine 1");
+        } else if (count == 1 && currentMachine == machines[1]) {
+            count++;
+            Debug.Log("correct machine 2");
+        } else if (count == 2 && currentMachine == machines[2]) {
+            count++;
+            Debug.Log("correct machine 3");
+        } else {
+            count = 0;
+            Debug.Log("Give Pop, wrong machine/finished puzzle");
+        }
     }
 }
