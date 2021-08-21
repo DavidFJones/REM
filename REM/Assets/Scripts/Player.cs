@@ -240,6 +240,10 @@ public class Player : MonoBehaviour
                         break;
                 }
 
+            } else {
+                hitObject = null;
+                canTouch = false;
+                SceneManager.Instance.playerUI.HUDMessageClear();
             }
 
 

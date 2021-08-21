@@ -130,7 +130,7 @@ public class UIManager : MonoBehaviour
     public void HUDMessageItem(GameObject item) {
         if (!holdMessage && item != lastItem) {
             lastItem = item;
-            hudText.text = item.GetComponent<CollectableItem>().title.ToString();
+            hudText.text = item.name;
             crossHair.rectTransform.sizeDelta = new Vector2(25, 25);
             crossHair.sprite = handCrossHair;
             lastMessage = HUDMessages.Item;
@@ -150,6 +150,7 @@ public class UIManager : MonoBehaviour
             crossHair.sprite = defaultCrossHair;
             crossHair.rectTransform.sizeDelta = new Vector2(5, 5);
             lastMessage = HUDMessages.None;
+            lastItem = null;
         } 
     }
     //Called when the player is looking at an object they can interact with
