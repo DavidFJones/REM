@@ -220,7 +220,7 @@ public class Player : MonoBehaviour
             if (hitObject.tag == "Interactable") {
                 canTouch = true;
                 hitPoint = hit.transform.InverseTransformPoint(hit.point);
-                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
+                InteractionType currentType = hitObject.GetComponent<interactionType>().type;
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:
@@ -231,6 +231,8 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case InteractionType.Door:
+                    case InteractionType.Pop:
+                    case InteractionType.Mirror_lock:
                         SceneManager.Instance.playerUI.HUDMessageInteract();
                         break;
                     default:
@@ -238,6 +240,10 @@ public class Player : MonoBehaviour
                         break;
                 }
 
+            } else {
+                hitObject = null;
+                canTouch = false;
+                SceneManager.Instance.playerUI.HUDMessageClear();
             }
 
 
@@ -336,7 +342,7 @@ public class Player : MonoBehaviour
         if (context.started) {
             //And we are looking at an interactive item, do the thing
             if (canTouch) {
-                InteractionType currentType = SceneManager.returnInteractionType(hitObject);
+                InteractionType currentType = hitObject.GetComponent<interactionType>().type;
                 switch (currentType) {
                     case InteractionType.Key:
                     case InteractionType.Item:
@@ -350,6 +356,12 @@ public class Player : MonoBehaviour
                         break;
                     case InteractionType.Door:
                         interactDoor(hitObject, hitPoint, transform.position);
+                        break;
+                    case InteractionType.Pop:
+                        SceneManager.Instance.popPuzzleManager.grabPopMachine(hitObject);
+                        break;
+                    case InteractionType.Mirror_lock:
+                        hitObject.GetComponent<MirrorLock>().openMirror();
                         break;
                     default:
                         Debug.LogError("Player interacted with an object without a proper interaction type " + hitObject, hitObject);

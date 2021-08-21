@@ -2,6 +2,8 @@ public enum InteractionType {
     Key,
     Item,
     Door,
+    Pop,
+    Mirror_lock,
     Null
 }
 
