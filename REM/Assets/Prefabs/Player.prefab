@@ -3358,13 +3358,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8022341166985711129}
-  - component: {fileID: 8185377757799743221}
   - component: {fileID: 6449993707378270741}
   - component: {fileID: 8022341166985711128}
   - component: {fileID: 8022341166985711135}
   - component: {fileID: 8022341166985711134}
   - component: {fileID: 8022341166985711130}
   - component: {fileID: 8022341166985711131}
+  - component: {fileID: 7307482912999285319}
+  - component: {fileID: 7378399129359829870}
+  - component: {fileID: 4603201896644140883}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -3390,37 +3392,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8185377757799743221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8022341166985711133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 063d4448ac6cccd438b4a6fd7d854e64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
-  currentDeviceType: 
-  horizontalSensitivity: 3
-  verticalSensitivity: 3
-  inventory: []
-  inventoryFull: 0
-  currentHealth: 0
-  footstepContainer: {fileID: 4573612818461001840}
-  startingHealth: 3
-  inventoryLimit: 8
-  accelertaion: 5500
-  maxSpeed: 1
-  maxStepHeight: 0.2
-  maxSlope: 40
-  raycastDistance: 1.5
-  hitObject: {fileID: 0}
-  walkingBobbingSpeed: 14
-  bobbingAmount: 0.05
-  defaultStepSound: {fileID: 0}
 --- !u!114 &6449993707378270741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3556,8 +3527,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7378399129359829870}
+        m_TargetAssemblyTypeName: PlayerWalkingControls, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -3572,8 +3543,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7378399129359829870}
+        m_TargetAssemblyTypeName: PlayerWalkingControls, Assembly-CSharp
         m_MethodName: Look
         m_Mode: 0
         m_Arguments:
@@ -3628,8 +3599,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7378399129359829870}
+        m_TargetAssemblyTypeName: PlayerWalkingControls, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 0
         m_Arguments:
@@ -3644,8 +3615,8 @@ MonoBehaviour:
     m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7378399129359829870}
+        m_TargetAssemblyTypeName: PlayerWalkingControls, Assembly-CSharp
         m_MethodName: Interact
         m_Mode: 0
         m_Arguments:
@@ -3660,7 +3631,7 @@ MonoBehaviour:
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 0
@@ -3676,7 +3647,7 @@ MonoBehaviour:
     m_ActionName: UI/Pause[/Keyboard/backquote,/XInputControllerWindows/start]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8185377757799743221}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 0
@@ -3690,11 +3661,147 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 04031cb0-1751-44e0-8547-dbc2eaafb222
     m_ActionName: UI/Back[/XInputControllerWindows/buttonEast,/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4603201896644140883}
+        m_TargetAssemblyTypeName: PlayerDragControls, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8cc3d0db-3071-451a-9d6a-444ee0a9bf5c
+    m_ActionName: Dragging/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4603201896644140883}
+        m_TargetAssemblyTypeName: PlayerDragControls, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f9d80806-961b-447d-b915-0bc72812fcfd
+    m_ActionName: Dragging/Look[/Mouse/delta,/Touchscreen/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4603201896644140883}
+        m_TargetAssemblyTypeName: PlayerDragControls, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 02f1d1ed-2004-4015-9fcc-28c211cf590f
+    m_ActionName: Dragging/Pause[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4603201896644140883}
+        m_TargetAssemblyTypeName: PlayerDragControls, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4a94fa9b-f0d8-4325-a4d1-4bfd4acaf725
+    m_ActionName: Dragging/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Walking
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 8022341168167680244}
+--- !u!114 &7307482912999285319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022341166985711133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1c8ba3239e22e4a94f3ca7ff373e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  playerInput: {fileID: 8022341166985711131}
+  currentDeviceType: 
+  horizontalSensitivity: 3
+  verticalSensitivity: 3
+  defaultCamPosY: 0
+  maxSpeed: 7
+  movement: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  playerCollider: {fileID: 0}
+  inventory: []
+  inventoryFull: 0
+  inventoryLimit: 8
+  currentHealth: 0
+  audioSource: {fileID: 4339175678000511421}
+  startingHealth: 3
+  defaultStepSound: {fileID: 8300000, guid: 1cfd98b6567ef7842b8a55ce2bb4ab26, type: 3}
+  canDrag: 0
+--- !u!114 &7378399129359829870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022341166985711133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2f36b7e8c461f49bb35179258afa51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 8022341166985711131}
+  accelertaion: 5500
+  maxStepHeight: 0.2
+  maxSlope: 40
+  raycastDistance: 1
+  hitObject: {fileID: 0}
+  walkingBobbingSpeed: 14
+  bobbingAmount: 0.05
+  footstepContainer: {fileID: 4573612818461001840}
+  tempCameraRotationY: 0
+  tempCameraRotationX: 0
+--- !u!114 &4603201896644140883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022341166985711133}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a93c6b66369174419444399c6a0a281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
+  kiosk: {fileID: 0}
+  maxSpeed: 0.5
+  footstepContainer: {fileID: 0}
+  defaultStepSound: {fileID: 0}
+  tempCameraRotationY: 0
+  tempCameraRotationX: 0
 --- !u!1 &8022341168167680202
 GameObject:
   m_ObjectHideFlags: 0

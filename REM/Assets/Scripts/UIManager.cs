@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     public PauseState state = PauseState.None;//Current state of pause menu
     //------------------------------------------------------
 
-    private void Awake() {
+    private void Start() {
         Vector2 hudSize = mainCanvas.GetComponent<RectTransform>().sizeDelta;
         opaqueBackground.GetComponent<RectTransform>().sizeDelta = hudSize;
     }
